@@ -6,16 +6,19 @@
   <meta name="keywords" content>
   <meta name="description" content="xiaodu-blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="it技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xiaodu-blog">
-<meta property="og:url" content="https://xiaodu-topc.github.io/archives/index.html">
+<meta name="description" content="java内存模型：java虚拟机规范中定义的java内存模型（JMM）是为了 屏蔽各种操作系统 ，硬件等内存的访问差异，以确保Java程序在所有操作系统和平台上能够实现一次编写、到处运行的效果。 理解java内存模型是学习java并发的基础，JMM定义了java中多线程对共享变量操作的定义主内存java虚拟机规范规定所有的共享变量存储在主内存中工作内存每个线程有自己的独立内存空间--工作内存；每个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java内存模型（JMM）">
+<meta property="og:url" content="https://xiaodu-topc.github.io/2019/09/23/JAVA内存模型（JMM）/index.html">
 <meta property="og:site_name" content="xiaodu-blog">
-<meta property="og:description" content="it技术分享">
+<meta property="og:description" content="java内存模型：java虚拟机规范中定义的java内存模型（JMM）是为了 屏蔽各种操作系统 ，硬件等内存的访问差异，以确保Java程序在所有操作系统和平台上能够实现一次编写、到处运行的效果。 理解java内存模型是学习java并发的基础，JMM定义了java中多线程对共享变量操作的定义主内存java虚拟机规范规定所有的共享变量存储在主内存中工作内存每个线程有自己的独立内存空间--工作内存；每个">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190923125708563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9kdWphdmE=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-09-23T12:12:16.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xiaodu-blog">
-<meta name="twitter:description" content="it技术分享">
+<meta name="twitter:title" content="java内存模型（JMM）">
+<meta name="twitter:description" content="java内存模型：java虚拟机规范中定义的java内存模型（JMM）是为了 屏蔽各种操作系统 ，硬件等内存的访问差异，以确保Java程序在所有操作系统和平台上能够实现一次编写、到处运行的效果。 理解java内存模型是学习java并发的基础，JMM定义了java中多线程对共享变量操作的定义主内存java虚拟机规范规定所有的共享变量存储在主内存中工作内存每个线程有自己的独立内存空间--工作内存；每个">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190923125708563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9kdWphdmE=,size_16,color_FFFFFF,t_70">
 
 
 <link rel="icon" href="/img/touxiang.jpg">
@@ -216,7 +219,7 @@
            href="/2019/09/23/JAVA内存模型（JMM）/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
+            <span class="post-title" title="java内存模型（JMM）">java内存模型（JMM）</span>
             <span class="post-date" title="2019-09-23 20:06:49">2019/09/23</span>
         </a>
         
