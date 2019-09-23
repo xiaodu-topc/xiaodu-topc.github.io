@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>hexo | xiaodu-blog</title>
+  <title>xiaodu-blog</title>
   <meta name="keywords" content>
-  <meta name="description" content="hexo | xiaodu-blog">
+  <meta name="description" content="xiaodu-blog">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="it技术分享">
 <meta property="og:type" content="website">
@@ -240,9 +240,7 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-hello-world-hexo" class="article article-type-post" itemscope itemprop="blogPost">
-    
-        <h1 class="article-title">hexo</h1>
+        <article id="post-JAVA内存模型（JMM）" class="article article-type-post" itemscope itemprop="blogPost">
     
     <div class="article-meta">
         
@@ -252,12 +250,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-21 14:33:25'>2019-09-21 13:46</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-23 20:06:31'>2019-09-23 20:06</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:73</span>
+        <span>字数:2.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -276,7 +274,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java内存模型："><span class="toc-text">java内存模型：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主内存"><span class="toc-text">主内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工作内存"><span class="toc-text">工作内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工作内存和主内存交互协议"><span class="toc-text">工作内存和主内存交互协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#这8个步骤必须符合的规则"><span class="toc-text">这8个步骤必须符合的规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原子性，可见性-和有序性"><span class="toc-text">原子性，可见性 和有序性</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -291,19 +289,50 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="java内存模型："><a href="#java内存模型：" class="headerlink" title="java内存模型："></a>java内存模型：</h3><pre><code>java虚拟机规范中定义的java内存模型（JMM）是为了 屏蔽各种操作系统 ，硬件等内存的访问差异，以确保Java程序在所有操作系统和平台上能够实现一次编写、到处运行的效果。
+理解java内存模型是学习java并发的基础，JMM定义了java中多线程对共享变量操作的定义</code></pre><h4 id="主内存"><a href="#主内存" class="headerlink" title="主内存"></a>主内存</h4><pre><code>java虚拟机规范规定所有的共享变量存储在主内存中</code></pre><h4 id="工作内存"><a href="#工作内存" class="headerlink" title="工作内存"></a>工作内存</h4><pre><code>每个线程有自己的独立内存空间--工作内存；</code></pre><p>每个线程不能直接操作主内存中的变量，只能从主内存copy到自己的工作内存空间进行操作，然后写入到主内存空间； 各个线程是不可见的数据不共享的， 线程之间的通信需要通过主内存进行交互；所以在多线程进行操作的时候就会出现数据一致性问题</p>
+<h4 id="工作内存和主内存交互协议"><a href="#工作内存和主内存交互协议" class="headerlink" title="工作内存和主内存交互协议"></a>工作内存和主内存交互协议</h4><p><img src="https://img-blog.csdnimg.cn/20190923125708563.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hpYW9kdWphdmE=,size_16,color_FFFFFF,t_70" alt="Java内存模型"><br><strong>lock</strong>(锁定)：作用于主内存变量，锁定变量为线程独占状态<br><strong>unlock</strong>(解锁): 作用于主内存变量，解锁线程锁定的变量，供其他线程使用<br><strong>read</strong>(读取)：作用于主内存变量，把一个变量的值从主内存中传输到线程工作内存中，以便随后的load操作<br><strong>load</strong>(载入)： 作用于工作内存变量，把从主内存中读取到的值保存到工作内存的变量副本中<br><strong>use</strong>(使用)： 作用于工作内存变量，把工作内存中的变量值传递给执行引擎，每当虚拟机需要使用这个变量的时候，就会执行该操作<br><strong>assign</strong>(赋值)：作用于工作内存中的变量，把从执行引擎中获取到的值赋值给工作内存的变量，每当虚拟机遇到一个给变量赋值的指令的时候会执行该操作<br><strong>store</strong>(存储)：作用于工作内存变量，把工作内存中变量的值传递给主内存，以便后续的write操作<br><strong>write</strong>(写入)：作用于主内存变量，把store操作过来的值写入到主内存变量中</p>
+<h5 id="这8个步骤必须符合的规则"><a href="#这8个步骤必须符合的规则" class="headerlink" title="这8个步骤必须符合的规则"></a>这8个步骤必须符合的规则</h5><ol>
+<li><strong>不允许read和load、store和write操作之一单独出现，以上两个操作必须按顺序执行</strong>，但没有保证必须连续执行，也就是说，read与load之间、store与write之间是可插入其他指令的。</li>
+<li><strong>不允许一个线程丢弃它的最近的assign操作，即变量在工作内存中改变了之后必须把该变化同步回主内存</strong></li>
+<li><strong>一个新的变量只允许在主内存中诞生，不允许工作内存直接使用未初始化的变量</strong></li>
+<li><strong>不允许一个线程回写没有修改的变量到主内存</strong>，也就是如果线程工作内存中变量没有发生过任何assign操作，是不允许将该变量的值回写到主内存</li>
+<li><strong>一个变量在同一时刻只能被一个线程进行lock操作</strong>，加锁后其他线程不能对该变量进行lock操作，只能等待解锁unlock后其他线程才能操作；但是同一线程对该变量能进行多次lock操作，不过也要相应执行多次的unlock</li>
+<li><strong>如果对一个变量执行lock操作，将会清空工作内存中此变量的值</strong>，在执行引擎使用这个变量前，需要重新执行load或assign操作初始化变量的值。</li>
+<li><strong>不允许对没有lock的变量执行unlock操作</strong>，如果一个变量没有被lock操作，那也不能对其执行unlock操作，当然一个线程也不能对被其他线程lock的变量执行unlock操作</li>
+<li><strong>对一个变量进行unlock操作的时候，必须把变量值同步回主内存</strong></li>
+</ol>
+<h4 id="原子性，可见性-和有序性"><a href="#原子性，可见性-和有序性" class="headerlink" title="原子性，可见性 和有序性"></a>原子性，可见性 和有序性</h4><ul>
+<li><strong>原子性</strong>：操作是不可中断的，要么成功要么失败；java内存模型中定义了8种操作都是原子操作，不可再分的；<br>由Java内存模型来直接保证的原子性变量 操作包括read、load、assign、use、store和write，我们大致可以认为基本数据类型的访问读写是具备原子性的。如果应用场景需要一个更大方位的原子性保证，Java内存模型还提供了lock和unlock操作来满足这种需求，尽管虚拟机未把lock和unlock操作直接开放给用户使用，但是却提供了更高层次的字节码指令monitorenter和monitorexit来隐式的使用这两个操作，这两个字节码指令反应到Java代码中就是同步块–synchronized关键字，因此在synchronized块之间的操作也具备原子性。<br>所以可以这么说JMM中定义的 read,load，assign,use,stoe,write都是原子性操作，lock和unlock是为了在多线程情况下保证原子性</li>
+<li><strong>可见性</strong>：可见性是指当一个线程修改了变量的值，其他线程能够立即感知到；变量值修改后刷新会主内存，使用变量的值时从主内存刷新回工作内存；volatile修饰的变量在操作的时候是具备可见性的，除了volatile之外，Java还有两个关键字能实现可见性，即synchronized和final;而final关键字的可见性是指：被final修饰的字段在构造器中一旦初始化完成，其他字段就能看见</li>
+</ul>
+<p>final字段的值，也就是final域能确保初始化过程的安全性。</p>
+<ul>
+<li><strong>有序性</strong>：单线程中所有的操作都是有序的；如果在多线程环境下，一个线程观察其他线程的操作都是无序的；前半句是指“线程内表现为串行的语义”，后半句是指“指令重排序”现象和“工作内存与主内存同步延迟”现象； 也可以这么说 单线程中不存在有序和无序，只有在多线程环境下多个线程操作顺序是乱序的</li>
+</ul>
+<p>这里引入一个指令重排序的概念； 编译器在不改变程序的语义的情况下对代码指令进行重排序；<br> 在Java内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>这样的操作 可能会先加载 int b = 20; 两个变量的加载顺序是不关联的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = a;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>这样的操作是和顺序由关联的 必须先加载a， 在加载 b</p>
+<p> 再看下面代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义两个变量</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">opration1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	a = <span class="number">2</span>;                     <span class="comment">// 1</span></span><br><span class="line">	flag = <span class="keyword">true</span>;               <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">opration2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (flag) &#123;                <span class="comment">// 3</span></span><br><span class="line">		System.out.print(a * a);<span class="comment">//4</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>现在假设有两个线程，一个线程调用了opration1 方法， 一个线程调用了opration2 方法， 由于指令重排序 线程1 可能是这么执行的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="keyword">true</span>;  <span class="comment">// 先执行了flag = true 并写入了主内存</span></span><br><span class="line">a = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>然后这个时候 线程而开始执行了，线程2 获取到的flag = true， a = 0;(线程1 的a赋值操作还没写入到主内存) 所以会输出 0 ；</p>
+<p>再看一个经典的单例问题， 双重检测机制</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//常见的 线程安全的单例模式</span></span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestA</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">TestA</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> TestA ta = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TestA <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ta == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (TestA.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (ta == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    ta = <span class="keyword">new</span> TestA();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ta;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 但是他一定安全吗/<br> ta = new TestA();<br> 这里会做三步操作；</p>
+<ol>
+<li>开辟内存空间，分配内存空间</li>
+<li>初始化对象信息</li>
+<li>句柄引用指向内存空间<br>在指令重排序的作用下 原本 1-2-3 的操作 可能会变成1-3-2 也就是分配空间后并没有初始化就进行了 对象的引用指向操作,<br>所以这个 单例模式 在极小的概率下并不是安全的</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 xiaoduup@aliyun.com </span>
@@ -317,12 +346,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>hexo</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">73</span></p>
+    <p><span class="copy-title">文章标题:</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Du Tian Jie">Du Tian Jie</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-21, 13:46:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-21, 14:33:25</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/21/hello-world-hexo/" title="hexo">https://xiaodu-topc.github.io/2019/09/21/hello-world-hexo/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-23, 20:06:49</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-23, 20:06:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/23/JAVA内存模型（JMM）/" title="">https://xiaodu-topc.github.io/2019/09/23/JAVA内存模型（JMM）/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
